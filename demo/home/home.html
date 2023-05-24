@@ -1,0 +1,342 @@
+<main>
+    <div class="home-container">
+        <div>
+            <h3>Simple Input with two items</h3>
+            <tag-input [(ngModel)]="items"
+                       (onSelect)="onSelect($event)"
+                       [modelAsStrings]="true">
+            </tag-input>
+        </div>
+
+        <div>
+            <h3>Partially editable input with two items as objects</h3>
+            <tag-input [(ngModel)]="itemsAsObjects"
+                       [identifyBy]="'id'"
+                       [displayBy]="'name'"></tag-input>
+        </div>
+
+        <div>
+            <h3>Simple Input with not removable items</h3>
+            <tag-input [ngModel]="items" [removable]="false"></tag-input>
+        </div>
+
+        <div>
+            <h3>Simple Input with editable items</h3>
+            <tag-input [(ngModel)]="items"
+                       [editable]="true"
+                       (onTagEdited)="onTagEdited($event)">
+            </tag-input>
+        </div>
+
+        <div>
+            <h3>Simple Input with editable items as objects</h3>
+            {{itemsAsObjects|json}}
+            <tag-input [(ngModel)]="itemsAsObjects"
+                       [editable]="true"
+                       [identifyBy]="'id'"
+                       [displayBy]="'name'">
+            </tag-input>
+        </div>
+
+        <div>
+            <h3>Input tag that allows max 3 tags</h3>
+            <tag-input [ngModel]="['Javascript', 'Typescript']"
+                       [maxItems]="3"
+                       [ripple]="false"
+                       placeholder="Insert a new item">
+            </tag-input>
+        </div>
+
+        <div>
+            <h3>An input which requires all tags to start with '@' and end with '$'</h3>
+            <tag-input [ngModel]="['@item']"
+                       [errorMessages]="errorMessages"
+                       [validators]="validators">
+                <tag-input-dropdown [autocompleteItems]="['@item$', 'item']">
+                </tag-input-dropdown>
+            </tag-input>
+        </div>
+
+        <div>
+            <h3>An input which will transform the value of all added tags prepending '@' to the tag</h3>
+            <tag-input [ngModel]="['@item']" [onAdding]="transform">
+            </tag-input>
+        </div>
+
+        <div>
+            <h3>Tags within an autocomplete component (clear on blur events)</h3>
+            <tag-input [ngModel]="['@item']"
+                       [clearOnBlur]="true">
+                <tag-input-dropdown [focusFirstElement]="true" [autocompleteItems]="autocompleteItems">
+                </tag-input-dropdown>
+            </tag-input>
+        </div>
+
+        <div>
+            <h3>Tags accepting only items from an autocomplete</h3>
+            <tag-input [ngModel]="['@item']"
+                       [onlyFromAutocomplete]="true">
+                <tag-input-dropdown [showDropdownIfEmpty]="true"
+                                    [dynamicUpdate]="false"
+                                    [focusFirstElement]="true"
+                                    [displayBy]="'value'"
+                                    [identifyBy]="'id'"
+                                    [autocompleteItems]="autocompleteItemsAsObjects">
+                    <ng-template let-item="item" let-index="index">
+                        ({{ index }}) {{ item.id }}: {{ item.value }}
+                    </ng-template>
+                </tag-input-dropdown>
+            </tag-input>
+        </div>
+
+        <div>
+            <h3>Tags accepting only items from an autocomplete using a remote endpoint</h3>
+            <tag-input [ngModel]="[]"
+                       [placeholder]="'Enter a new repo'"
+                       [onTextChangeDebounce]="500"
+                       [secondaryPlaceholder]="'Search in Github'"
+                       [onlyFromAutocomplete]="true">
+                <tag-input-dropdown
+                    [autocompleteObservable]="requestAutocompleteItems"
+                    [minimumTextLength]="0">
+                    <ng-template let-item="item" let-index="index">
+                        {{ item.display }}
+                    </ng-template>
+                </tag-input-dropdown>
+            </tag-input>
+        </div>
+
+        <div>
+            <h3>Tags accepting only items from an autocomplete using an observable and showing dropdown without entering text</h3>
+            <tag-input [ngModel]="items" [onlyFromAutocomplete]="true">
+                <tag-input-dropdown
+                    [showDropdownIfEmpty]="true"
+                    [autocompleteObservable]="requestAutocompleteItemsFake">
+                </tag-input-dropdown>
+            </tag-input>
+        </div>
+
+        <div>
+            <h3>Tags dropdown with last provided</h3>
+            <tag-input [ngModel]="[]"
+                       [placeholder]="'Enter a new repo'"
+                       [secondaryPlaceholder]="'Search in Github'"
+                       [onlyFromAutocomplete]="true">
+                <tag-input-dropdown [autocompleteObservable]="requestAutocompleteItems">
+                    <ng-template let-item="item" let-index="index" let-last="last">
+                        ({{ index }}) {{ item.id }}: {{ item.value }} # {{ last }}
+                    </ng-template>
+                </tag-input-dropdown>
+            </tag-input>
+        </div>
+
+        <div>
+            <h3>An input which allows adding items by pressing the key "space" of your keyboard</h3>
+            <tag-input [ngModel]="['@item']"
+                       [inputClass]="'myinput'"
+                       [inputId]="'myinputId'"
+                       [separatorKeyCodes]="[32, 188]"
+            >
+            </tag-input>
+        </div>
+
+        <div>
+            <h3>Tags custom template</h3>
+            <tag-input [ngModel]="['@item']"
+                       [modelAsStrings]="true"
+                       #input
+                       (onTextChange)="onTextChange($event)">
+                <ng-template item-template let-item="item" let-index="index">
+                    <span>
+                        item: {{ item }}
+                    </span>
+
+                    <span (click)="input.removeItem(item, index)" class="ng2-tag__remove-button">
+                        x
+                    </span>
+                </ng-template>
+            </tag-input>
+        </div>
+
+        <div style="z-index: 1100; background: #fafafa">
+            <h3>Input with custom item template and custom dropdown item template</h3>
+            {{ itemsAsObjects | json }}
+            <tag-input [(ngModel)]="itemsAsObjects"
+                       [displayBy]="'name'"
+                       [identifyBy]="'id'">
+                <ng-template let-item="item">
+                    tag: {{ item.name }}
+                </ng-template>
+                <tag-input-dropdown
+                    [autocompleteItems]="autocompleteItemsAsObjects"
+                    [dynamicUpdate]="false"
+                    [zIndex]="10000"
+                    [displayBy]="'value'"
+                    [identifyBy]="'id'">
+                    <ng-template let-item="item" let-index="index">
+                        dropdown: {{ item.value }}
+                    </ng-template>
+                </tag-input-dropdown>
+            </tag-input>
+        </div>
+
+        <div>
+            <h3>Tags within a form element with outputs</h3>
+            <form>
+                <tag-input
+                    (onBlur)="onBlur($event)"
+                    (onFocus)="onFocus($event)"
+                    (onTextChange)="onTextChange($event)"
+                    (onValidationError)="onValidationError($event)"
+                    [ngModel]="['@item']"
+                    name="items"></tag-input>
+            </form>
+        </div>
+
+        <div>
+            <h3>Tags within a form group</h3>
+            <form [formGroup]="form">
+                <tag-input
+                    [disable]="true"
+                    [formControlName]="'chips'"
+                    name="items">
+                </tag-input>
+            </form>
+        </div>
+
+        <div>
+            <h3>Tags with theme minimal</h3>
+            <form>
+                <tag-input
+                    [theme]="'minimal'"
+                    [ngModel]="['@item']"
+                    name="items"></tag-input>
+            </form>
+        </div>
+
+        <div>
+            <h3>Tags with theme dark and pasteable items</h3>
+            <form>
+                <tag-input
+                    [addOnPaste]="true"
+                    [pasteSplitPattern]="'-'"
+                    [theme]="'dark'"
+                    [ngModel]="['@item']"
+                    name="items"></tag-input>
+            </form>
+        </div>
+
+        <div>
+            <h3>Tags with Bootstrap theme</h3>
+            <form>
+                <tag-input
+                    [theme]="'bootstrap'"
+                    [ngModel]="['@item']"
+                    name="items">
+                </tag-input>
+            </form>
+        </div>
+
+        <div>
+            <h3>Tags with user-defined Foundation theme</h3>
+            <tag-input [ngModel]="items"
+                       [theme]="'foundation-theme'"
+                       [modelAsStrings]="true">
+            </tag-input>
+        </div>
+
+        <div>
+            <h3>Tags with Bootstrap 3 (info) theme</h3>
+            <form>
+                <tag-input
+                    [theme]="'bootstrap3-info'"
+                    [ngModel]="['@item']"
+                    name="items">
+                </tag-input>
+            </form>
+        </div>
+
+        <div>
+            <h3>Simple Input that allows dupes</h3>
+            <tag-input [(ngModel)]="items" [allowDupes]="true"></tag-input>
+        </div>
+
+        <div>
+            <h3>Input with two-way data binding for its input text</h3>
+
+            <input [(ngModel)]="inputText" (keyup.enter)="insertInputTag()"/>
+
+            <tag-input [(ngModel)]="items" [(inputText)]="inputText"></tag-input>
+        </div>
+
+        <div>
+            <h3>Disabled tag input</h3>
+
+            Disable: <input type="checkbox" [(ngModel)]="disabled" />
+
+            <tag-input [ngModel]="items"
+                       [disable]="disabled">
+                <tag-input-dropdown [autocompleteItems]="autocompleteItems">
+                </tag-input-dropdown>
+            </tag-input>
+        </div>
+
+        <div>
+            <h3>Drag and drop</h3>
+            <tag-input  [(ngModel)]="dragAndDropExample"
+                        [modelAsStrings]="true"
+                        [dragZone]="'zone1'"
+                        [editable]="true">
+            </tag-input>
+        </div>
+
+        <div>
+            <h3>Drag and drop (as string) can be moved to another tag-input (to the next)</h3>
+            <tag-input  [(ngModel)]="dragAndDropStrings"
+                        [modelAsStrings]="true"
+                        [dragZone]="'zone1'"
+                        [editable]="true">
+            </tag-input>
+        </div>
+
+        <div>
+            <h3>Drag and drop (as object) can be moved to another tag-input (to the previous)</h3>
+            <tag-input  [(ngModel)]="dragAndDropObjects"
+                        [dragZone]="'zone1'"
+                        [editable]="true">
+            </tag-input>
+        </div>
+
+        <div>
+            <h3>Confirm adding and removing tags with Observables</h3>
+            <tag-input [ngModel]="['item1']"
+                       [dragZone]="'zone1'"
+                       [modelAsStrings]="true"
+                       [onRemoving]="onRemoving"
+                       [onAdding]="onAdding">
+            </tag-input>
+        </div>
+
+        <div>
+            <h3>Form using an async validator</h3>
+            <tag-input [ngModel]="['item1']"
+                       [errorMessages]="asyncErrorMessages"
+                       [addOnPaste]="true"
+                       [asyncValidators]="asyncValidators">
+                <tag-input-dropdown [autocompleteItems]="['1','2']"></tag-input-dropdown>
+            </tag-input>
+        </div>
+
+        <div>
+            {{ items | json }}
+            <h3>Autocomplete items using onAdding</h3>
+            <tag-input [(ngModel)]="items" [onlyFromAutocomplete]="true" [onAdding]="asyncOnAdding">
+                <tag-input-dropdown
+                    [autocompleteItems]="autocompleteItemsAsObjects"
+                    [displayBy]="'value'"
+                    [identifyBy]="'id'">
+                </tag-input-dropdown>
+            </tag-input>
+        </div>
+    </div>
+</main>
