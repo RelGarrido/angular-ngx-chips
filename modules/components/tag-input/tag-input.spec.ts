@@ -1,4 +1,4 @@
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import {
   async,
   ComponentFixture,
@@ -147,7 +147,7 @@ describe('TagInputComponent', () => {
 
       fakeAsync(async (done: DoneFn) => {
         const component = getComponent(fixture);
-        const control = component.inputForm.form.get('item') as FormControl;
+        const control = component.inputForm.form.get('item') as UntypedFormControl;
 
         control.setValue(itemName);
 

@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 
 import {
     Validators,
-    FormControl
+    UntypedFormControl
 } from '@angular/forms';
 
 import { Observable } from 'rxjs';
@@ -17,7 +17,7 @@ function getItems() {
     return ['Javascript', 'Typescript'];
 }
 
-const validators = [Validators.minLength(3), (control: FormControl) => {
+const validators = [Validators.minLength(3), (control: UntypedFormControl) => {
     if (control.value.charAt(0) !== '@') {
         return {
             'startsWithAt@': true

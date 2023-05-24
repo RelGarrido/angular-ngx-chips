@@ -25,7 +25,6 @@ TagInputModule.withDefaults({
         TagInputModule
     ],
     declarations: [Home],
-    bootstrap: [Home],
-    entryComponents: [Home]
+    bootstrap: [Home]
 })
 export class AppModule { }

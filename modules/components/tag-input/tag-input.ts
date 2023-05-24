@@ -19,7 +19,7 @@ import {
 
 import {
     AsyncValidatorFn,
-    FormControl,
+    UntypedFormControl,
     NG_VALUE_ACCESSOR,
     ValidatorFn
 } from '@angular/forms';
@@ -616,8 +616,8 @@ export class TagInputComponent extends TagInputAccessor implements OnInit, After
     /**
      * @name getControl
      */
-    private getControl(): FormControl {
-        return this.inputForm.value as FormControl;
+    private getControl(): UntypedFormControl {
+        return this.inputForm.value as UntypedFormControl;
     }
 
     /**

@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {filter, map} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 
@@ -10,10 +10,10 @@ import {Observable, of} from 'rxjs';
     templateUrl: './home.html'
 })
 export class Home {
-    form: FormGroup;
+    form: UntypedFormGroup;
 
     constructor(private http: HttpClient) {
-        this.form = new FormBuilder().group({
+        this.form = new UntypedFormBuilder().group({
             chips: [['chip'], []]
         });
     }
@@ -94,7 +94,7 @@ export class Home {
         return of(item);
     }
 
-    private startsWithAt(control: FormControl) {
+    private startsWithAt(control: UntypedFormControl) {
         if (control.value.charAt(0) !== '@') {
             return {
                 'startsWithAt@': true
@@ -104,7 +104,7 @@ export class Home {
         return null;
     }
 
-    private endsWith$(control: FormControl) {
+    private endsWith$(control: UntypedFormControl) {
         if (control.value.charAt(control.value.length - 1) !== '$') {
             return {
                 'endsWith$': true
@@ -114,7 +114,7 @@ export class Home {
         return null;
     }
 
-    private validateAsync(control: FormControl): Promise<any> {
+    private validateAsync(control: UntypedFormControl): Promise<any> {
         return new Promise(resolve => {
             const value = control.value;
             const result: any = isNaN(value) ? {
