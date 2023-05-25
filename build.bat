@@ -7,7 +7,7 @@ git push
 pause
 echo 'Building npm branch'
 
-git branch --delete npm
+git branch -D npm
 git checkout -b npm
 rmdir /S /Q dist
 rmdir /S /Q node_modules
@@ -22,4 +22,4 @@ pause
 
 rmdir /S /Q dist
 git checkout master
-git branch --delete npm
+git branch -D npm
