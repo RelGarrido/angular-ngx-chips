@@ -14,6 +14,7 @@ rmdir /S /Q node_modules
 call npm i
 call npx ng build modules
 git add --all
+git add -f dist
 git commit -m "deploy"
 git push -f git@github.com:RelGarrido/angular-ngx-chips.git npm:npm --force
 
