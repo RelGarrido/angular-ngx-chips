@@ -292,7 +292,7 @@ export class TagInputComponent extends TagInputAccessor implements OnInit, After
      * @name dropdown
      */
     // @ContentChild(forwardRef(() => TagInputDropdown), {static: true}) dropdown: TagInputDropdown;
-    @ContentChild(TagInputDropdown) public dropdown: TagInputDropdown;
+    @ContentChild(TagInputDropdown) declare public dropdown: TagInputDropdown;
     /**
      * @name template
      * @desc reference to the template if provided by the user

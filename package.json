@@ -5,7 +5,7 @@
   "scripts": {
     "release": "npm run build && npm publish dist",
     "postrelease": "rm -rf dist",
-    "build": "ng-packagr -p package.json && mkdirp ./dist/dist && ncp ./modules/core/styles ./dist/core/styles",
+    "build": "ng-packagr -p ng-package.json && mkdirp ./dist/dist && ncp ./modules/core/styles ./dist/core/styles",
     "server": "ng serve --port 3010",
     "start": "npm run server",
     "test": "ng test modules --browsers=ChromeHeadless --watch=false",
@@ -58,16 +58,6 @@
     "url": "https://github.com/Gbuomprisco/ngx-chips/issues"
   },
   "homepage": "https://github.com/Gbuomprisco/ngx-chips",
-  "$schema": "./node_modules/ng-packagr/package.schema.json",
-  "ngPackage": {
-    "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
-    "lib": {
-      "entryFile": "modules/index.ts"
-    },
-    "allowedNonPeerDependencies": [
-      "ng2-material-dropdown"
-    ]
-  },
   "bit": {
     "env": {
       "compiler": "bit.envs/compilers/angular@0.2.0"
