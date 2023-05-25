@@ -1,11 +1,25 @@
+echo 'Any change is master will be pushed'
+git checkout master
+git add --all
+git commit -m "changes to master"
+git push
+
+pause
+echo 'Building npm branch'
+
+git branch --delete npm
+git checkout -b npm
 rmdir /S /Q dist
+rmdir /S /Q node_modules
+pause
+
 call npm i
 call npx ng build modules
-rename .git .git2
-git init
-git add -A
-git commit -m 'deploy'
-git push -f git@github.com:RelGarrido/angular-text-mask.git master:npm
-rmdir /S /Q ".git"
-rename .git2 .git
+git add --all
+git commit -m "deploy"
+git push -f git@github.com:RelGarrido/angular-text-mask.git origin npm
+pause
 
+rmdir /S /Q dist
+git checkout master
+git branch --delete npm
