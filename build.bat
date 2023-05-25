@@ -17,7 +17,7 @@ call npm i
 call npx ng build modules
 git add --all
 git commit -m "deploy"
-git push -f git@github.com:RelGarrido/angular-text-mask.git origin npm --force
+git push -f git@github.com:RelGarrido/angular-text-mask.git npm:npm --force
 pause
 
 rmdir /S /Q dist
