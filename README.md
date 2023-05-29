@@ -3,7 +3,7 @@
 Just run ``build.bat`` on windows machine. Change the repo path if needed.
 
 Add this line to package.json dependencides and run ``npm i``
-``
+```
     "ngx-chips": "git+https://github.com/RelGarrido/angular-ngx-chips.git#npm",
 ```
 
