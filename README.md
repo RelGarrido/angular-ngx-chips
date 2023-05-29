@@ -1,6 +1,11 @@
-# How to build
+# How to build & use
 
 Just run ``build.bat`` on windows machine. Change the repo path if needed.
+
+Add this line to package.json dependencides and run ``npm i``
+``
+    "ngx-chips": "git+https://github.com/RelGarrido/angular-ngx-chips.git#npm",
+```
 
 # Tag Input Component for Angular [![Build Status](https://travis-ci.org/Gbuomprisco/ngx-chips.svg?branch=develop)](https://travis-ci.org/Gbuomprisco/ng2-tag-input) [![npm version](https://badge.fury.io/js/ngx-chips.svg)](https://badge.fury.io/js/ngx-chips)
 
